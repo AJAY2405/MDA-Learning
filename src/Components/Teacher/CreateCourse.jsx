@@ -32,7 +32,7 @@ const CreateCourse = () => {
     const token = localStorage.getItem("accessToken"); // ✅ correct key
 
     const res = await axios.post(
-      "http://localhost:8000/api/v1/course/",
+      `${import.meta.env.VITE_API_BASE_URL}/api/v1/course/`,
       { courseTitle, category },
       {
         headers: {

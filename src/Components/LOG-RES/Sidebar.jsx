@@ -41,7 +41,7 @@ const Sidebar = () => {
     try {
       const accessToken = localStorage.getItem("accessToken");
       const res = await axios.post(
-        "http://localhost:8000/api/v1/user/logout",
+        `${import.meta.env.VITE_API_BASE_URL}/api/v1/user/logout`,
         {},
         {
           headers: { Authorization: `Bearer ${accessToken}` },
@@ -123,7 +123,7 @@ const Sidebar = () => {
             <img
               src="/logo.png"
               alt="MDA Coaching Logo"
-              className="mx-auto mb-6 w-45 h-45 object-contain"
+              className="mx-auto mb-6 w-60 h-30 object-contain"
             />
             {/* <Link
               to="/"

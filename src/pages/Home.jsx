@@ -1,8 +1,9 @@
-import Hero from "@/components/Hero";
+// import Hero from "@/components/Hero";
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import CourseCard from "./CourseCard";
 import axios from "axios";
+import Hero from "@/Components/Hero";
 
 const Home = () => {
   const [courses, setCourses] = useState([]);
@@ -12,7 +13,7 @@ const Home = () => {
     const getCourses = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8000/api/v1/course/published-courses",
+          `${import.meta.env.VITE_API_BASE_URL}/api/v1/course/published-courses`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

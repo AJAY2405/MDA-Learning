@@ -32,7 +32,7 @@ const CreateLecture = () => {
       setFetching(true);
 
       const res = await axios.get(
-        `http://localhost:8000/api/v1/course/${courseId}/lecture`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/v1/course/${courseId}/lecture`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // ✅ IMPORTANT
@@ -68,7 +68,7 @@ const CreateLecture = () => {
       setLoading(true);
 
       const res = await axios.post(
-        `http://localhost:8000/api/v1/course/${courseId}/lecture`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/v1/course/${courseId}/lecture`,
         { lectureTitle },
         {
           headers: {

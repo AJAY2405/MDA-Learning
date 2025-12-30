@@ -40,7 +40,7 @@ const LectureTab = () => {
   const getLectureById = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:8000/api/v1/course/${courseId}/lecture/${lectureId}`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/v1/course/${courseId}/lecture/${lectureId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -83,7 +83,7 @@ const LectureTab = () => {
       setLoading(true);
 
       const res = await axios.post(
-        `http://localhost:8000/api/v1/course/${courseId}/lecture/${lectureId}`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/v1/course/${courseId}/lecture/${lectureId}`,
         data,
         {
           headers: { 
@@ -111,7 +111,7 @@ const LectureTab = () => {
       setRemoveLoading(true);
 
       const res = await axios.delete(
-        `http://localhost:8000/api/v1/course/lecture/${lectureId}`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/v1/course/lecture/${lectureId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

@@ -41,8 +41,10 @@ const Login = () => {
     e.preventDefault();
     try {
       setIsLoading(true);
+      // console.log("API:", import.meta.env.VITE_API_BASE_URL);
+
       const res = await axios.post(
-        `http://localhost:8000/api/v1/user/login`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/v1/user/login`,
         formData,
         {
           headers: {

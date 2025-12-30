@@ -24,7 +24,7 @@ function Course() {
       const token = localStorage.getItem("accessToken");
 
       const res = await axios.get(
-        "http://localhost:8000/api/v1/course",
+        `${import.meta.env.VITE_API_BASE_URL}/api/v1/course`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

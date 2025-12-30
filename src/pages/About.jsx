@@ -9,7 +9,7 @@ const About = () => {
         <img
           src="/logo.png"
           alt="MDA Coaching Logo"
-          className="mx-auto mb-6 w-30 h-30 object-contain"
+          className="mx-auto mb-10 w-80 h-40 object-contain "
         />
 
         {/* Heading */}

@@ -46,7 +46,7 @@ const VerifyOTP = () => {
       setIsLoading(true);
       setError("");
       const res = await axios.post(
-        `http://localhost:8000/api/v1/user/verify-otp/${email}`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/v1/user/verify-otp/${email}`,
         { otp: finalOtp },
         { headers: { "Content-Type": "application/json" } }
       );

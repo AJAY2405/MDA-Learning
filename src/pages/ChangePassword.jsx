@@ -30,7 +30,7 @@ const ChangePassword = () => {
 
         try {
             setIsLoading(true)
-            const res = await axios.post(`http://localhost:8000/api/v1/user/change-password/${email}`, {
+            const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/v1/user/change-password/${email}`, {
                 newPassword,
                 confirmPassword
             })

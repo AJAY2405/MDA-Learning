@@ -19,7 +19,7 @@ const CourseDetails = () => {
     const getCourseById = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8000/api/v1/course/${courseId}`,
+          `${import.meta.env.VITE_API_BASE_URL}/api/v1/course/${courseId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -43,7 +43,7 @@ const CourseDetails = () => {
     const getCourseLecture = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8000/api/v1/course/${courseId}/lecture`,
+          `${import.meta.env.VITE_API_BASE_URL}/api/v1/course/${courseId}/lecture`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
