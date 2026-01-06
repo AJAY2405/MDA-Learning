@@ -121,7 +121,7 @@ const Sidebar = () => {
           {/* Logo */}
           <div className="flex items-center gap-2 px-6 py-4 border-b">
             <img
-              src="/logo.png"
+              src="/Image/logo.png"
               alt="MDA Coaching Logo"
               className="mx-auto mb-6 w-60 h-30 object-contain"
             />
