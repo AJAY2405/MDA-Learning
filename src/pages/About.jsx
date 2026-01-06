@@ -68,7 +68,7 @@ const About = () => {
 
         {/* Courses */}
         <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-          Courses We Offer
+          Courses We Offers
         </h2>
         <ul className="list-disc pl-6 text-gray-700 space-y-2 text-left max-w-3xl mx-auto">
           <li>Foundation Courses for Classes 6th to 10th</li>
