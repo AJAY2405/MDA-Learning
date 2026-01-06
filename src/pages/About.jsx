@@ -7,7 +7,7 @@ const About = () => {
       <div className="max-w-5xl mx-auto text-center">
         {/* Logo */}
         <img
-          src="/logo.png"
+          src="/Image/logo.png"
           alt="MDA Coaching Logo"
           className="mx-auto mb-10 w-80 h-40 object-contain "
         />

@@ -9,7 +9,7 @@ const Footer = () => {
         {/* Brand */}
         <div className="flex items-center gap-2">
           <img
-            src="/logo.png"
+            src="/Image/logo.png"
             alt="E-Learning Logo"
             className="w-80 h-20 object-contain"
           />
