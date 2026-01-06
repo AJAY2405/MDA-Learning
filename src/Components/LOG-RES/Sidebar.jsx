@@ -225,9 +225,9 @@ const Sidebar = () => {
           ) : (
             <Link
               to="/login"
-              className="flex items-center gap-2 p-3 text-gray-700 hover:bg-gray-50 rounded-md"
+              className="flex items-center gap-2 p-3 font-bold text-gray-800 hover:bg-gray-50 rounded-md"
             >
-              <User className="h-5 w-5" />
+              <User className="h-5 w-5 font-bold text-black" />
               Login / Signup
             </Link>
           )}

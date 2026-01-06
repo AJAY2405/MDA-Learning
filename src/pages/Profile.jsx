@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import UserLogo from "../Components/assets/user.jpg";
+import UserLogo from "../components/assets/user.jpg";
 import { getData } from "@/context/userContext";
 import axios from "axios";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Dialog } from "@radix-ui/react-dialog";
 import {
   DialogContent,
@@ -12,9 +12,9 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/Components/ui/dialog";
-import { Label } from "@/Components/ui/label";
-import { Input } from "@/Components/ui/input";
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 const Profile = () => {
   const { user, setUser } = getData();
@@ -81,10 +81,10 @@ const Profile = () => {
   };
 
 return (
-  <div className="min-h-screen bg-gradient-to-br from-black via-zinc-900 to-black flex items-center justify-center px-6 py-20">
+  <div className="min-h-screen bg-gradient-to-br from-white via-white-900 to-white flex items-center justify-center px-6 py-20">
     
     {/* Main Card */}
-    <div className="relative w-full max-w-6xl rounded-[32px] bg-white/90 backdrop-blur-xl shadow-[0_40px_120px_rgba(0,0,0,0.6)] border border-white/20 p-12">
+    <div className="relative w-full max-w-6xl rounded-[32px] bg-black/90 backdrop-blur-xl shadow-[0_40px_120px_rgba(0,0,0,0.6)] border border-white/20 p-12">
 
       {/* Top Glow */}
       <div className="absolute -top-20 -right-20 w-72 h-72 bg-black/20 rounded-full blur-3xl" />
@@ -96,7 +96,7 @@ return (
         <div className="flex flex-col items-center">
           <div className="relative">
             <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-black to-gray-500 blur-md opacity-70" />
-            <div className="relative w-48 h-48 rounded-full overflow-hidden border-[5px] border-white shadow-2xl">
+            <div className="relative w-30 h-35 rounded-full overflow-hidden border-[5px] border-white shadow-2xl">
               <img
                 src={user?.avatar || UserLogo}
                 alt="Profile"
@@ -105,25 +105,25 @@ return (
             </div>
           </div>
 
-          <p className="mt-6 text-sm uppercase tracking-widest text-gray-600">
+          <p className="mt-6 text-sm uppercase tracking-widest text-white">
             Profile Image
           </p>
         </div>
 
         {/* Info Section */}
         <div className="flex-1 text-center lg:text-left">
-          <h1 className="text-5xl font-black tracking-tight text-black">
+          <h1 className="text-5xl font-semibold tracking-tight text-white">
             {user?.username || "User"}
           </h1>
 
-          <div className="mt-6 space-y-3 text-lg text-gray-700">
+          <div className="mt-6 space-y-3 text-lg text-white">
             <p>
-              <span className="font-semibold text-black">Email</span>  
+              <span className="font-semibold text-white">Email</span>  
               <span className="ml-2">{user?.email}</span>
             </p>
 
             <p className="capitalize">
-              <span className="font-semibold text-black">Role</span>  
+              <span className="font-semibold text-white">Role</span>  
               <span className="ml-2">{user?.role}</span>
             </p>
           </div>
@@ -134,7 +134,7 @@ return (
           {/* CTA */}
           <Button
             onClick={() => setOpen(true)}
-            className="relative overflow-hidden bg-black text-white px-10 py-4 rounded-full text-lg font-semibold tracking-wide shadow-xl hover:scale-[1.03] transition-all"
+            className="relative overflow-hidden bg-white text-black px-10 py-4 rounded-full text-lg font-semibold tracking-wide shadow-xl hover:scale-[1.03] transition-all"
           >
             Edit Profile
           </Button>

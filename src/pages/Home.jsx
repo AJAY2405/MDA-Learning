@@ -1,9 +1,9 @@
-// import Hero from "@/components/Hero";
+import Hero from "@/components/Hero";
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import CourseCard from "./CourseCard";
 import axios from "axios";
-import Hero from "@/Components/Hero";
+// import Hero from "@/Components/Hero";
 
 const Home = () => {
   const [courses, setCourses] = useState([]);
