@@ -68,20 +68,20 @@ import About from "./pages/About";
 import Profile from "./pages/Profile";
 
 // Student
-import Courses from "./Components/Student/Courses";
-import CourseDetails from "./Components/Student/CourseDetails";
+import Courses from "./components/Student/Courses";
+import CourseDetails from "./components/Student/CourseDetails";
 
 // Teacher
-import TeacherDashboard from "./Components/Teacher/TeacherDashboard";
-import Course from "./Components/Teacher/Course";
-import CreateCourse from "./Components/Teacher/CreateCourse";
-import UpdateCourse from "./Components/Teacher/UpdateCourse";
-import CreateLecture from "./Components/Teacher/CreateLecture";
-import EditLecture from "./Components/Teacher/EditLecture";
+import TeacherDashboard from "./components/Teacher/TeacherDashboard";
+import Course from "./components/Teacher/Course";
+import CreateCourse from "./components/Teacher/CreateCourse";
+import UpdateCourse from "./components/Teacher/UpdateCourse";
+import CreateLecture from "./components/Teacher/CreateLecture";
+import EditLecture from "./components/Teacher/EditLecture";
 
 // Auth
-import Signup from "./Components/LOG-RES/Signup";
-import Login from "./Components/LOG-RES/Login";
+import Signup from "./components/LOG-RES/Signup";
+import Login from "./components/LOG-RES/Login";
 import Verify from "./pages/Verify";
 import VerifyEmail from "./pages/VerifyEmail";
 import ForgotPassword from "./pages/ForgotPassword";
