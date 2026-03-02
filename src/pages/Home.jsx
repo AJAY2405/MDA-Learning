@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import CourseCard from "./CourseCard";
 import axios from "axios";
-// import Hero from "@/Components/Hero";
 
 const Home = () => {
   const [courses, setCourses] = useState([]);
@@ -22,8 +21,7 @@ const Home = () => {
         );
 
         if (res.data.success) {
-          // ✅ show only first 3 courses on home page
-          setCourses(res.data.courses.slice(0, 2));
+          setCourses(res.data.courses.slice(0, 3));
         }
       } catch (error) {
         console.log(error);
@@ -34,26 +32,33 @@ const Home = () => {
   }, [token]);
 
   return (
-    <div>
+    <div
+      className="
+        min-h-screen transition-colors duration-300
+        bg-gray-50 dark:bg-gray-900
+      "
+    >
+      {/* Hero Section */}
       <Hero />
 
       {/* ---------- COURSES SECTION ---------- */}
-      <div className="mt-20 px-4">
+      <div className="mt-20 px-6 pb-20">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-3xl font-bold text-center mb-8"
+          className="text-3xl md:text-4xl font-bold text-center mb-10 
+                     text-gray-900 dark:text-white"
         >
           Popular Courses
         </motion.h1>
 
-        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {courses.length > 0 ? (
             courses.map((course) => (
               <CourseCard key={course._id} course={course} />
             ))
           ) : (
-            <p className="text-center col-span-full">
+            <p className="text-center col-span-full text-gray-600 dark:text-gray-300 text-lg">
               No courses available
             </p>
           )}

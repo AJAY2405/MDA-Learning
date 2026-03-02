@@ -132,83 +132,106 @@ const LectureTab = () => {
   };
 
   return (
-    <Card>
-      <CardHeader className="flex justify-between">
-        <div>
-          <CardTitle>Edit Lecture</CardTitle>
-          <CardDescription>
-            Update lecture details and YouTube video link.
-          </CardDescription>
+    <Card className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-lg">
+
+  {/* Header */}
+  <CardHeader className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+
+    <div>
+      <CardTitle className="text-xl text-gray-800 dark:text-white">
+        Edit Lecture
+      </CardTitle>
+      <CardDescription className="text-gray-600 dark:text-gray-400">
+        Update lecture details and YouTube video link.
+      </CardDescription>
+    </div>
+
+    <Button
+      disabled={removeLoading}
+      variant="destructive"
+      onClick={removeLectureHandler}
+      className="md:w-auto w-full"
+    >
+      {removeLoading ? (
+        <>
+          <Loader2 className="mr-2 w-4 h-4 animate-spin" />
+          Please wait
+        </>
+      ) : (
+        "Remove Lecture"
+      )}
+    </Button>
+  </CardHeader>
+
+  {/* Content */}
+  <CardContent>
+    <div className="space-y-6">
+
+      {/* Lecture Title */}
+      <div>
+        <Label className="text-gray-800 dark:text-gray-200">
+          Lecture Title
+        </Label>
+        <Input
+          value={lectureTitle}
+          onChange={(e) => setLectureTitle(e.target.value)}
+          placeholder="Ex. Introduction to JavaScript"
+          className="mt-2 bg-white dark:bg-gray-700 dark:text-white border-gray-300 dark:border-gray-600"
+        />
+      </div>
+
+      {/* YouTube Link */}
+      <div>
+        <Label className="text-gray-800 dark:text-gray-200">
+          YouTube Video Link
+        </Label>
+        <Input
+          value={youtubeUrl}
+          onChange={(e) => setYoutubeUrl(e.target.value)}
+          placeholder="https://www.youtube.com/watch?v=XXXX"
+          className="mt-2 bg-white dark:bg-gray-700 dark:text-white border-gray-300 dark:border-gray-600"
+        />
+      </div>
+
+      {/* Video Preview */}
+      {youtubeUrl && youtubeUrl.includes("youtube.com") && (
+        <div className="rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+          <iframe
+            className="w-full h-64"
+            src={youtubeUrl.replace("watch?v=", "embed/")}
+            title="YouTube Preview"
+            allowFullScreen
+          />
         </div>
+      )}
 
-        <Button
-          disabled={removeLoading}
-          variant="destructive"
-          onClick={removeLectureHandler}
-        >
-          {removeLoading ? (
-            <>
-              <Loader2 className="mr-1 w-4 h-4 animate-spin" />
-              Please wait
-            </>
-          ) : (
-            "Remove Lecture"
-          )}
-        </Button>
-      </CardHeader>
+      {/* Free Switch */}
+      <div className="flex items-center justify-between bg-gray-50 dark:bg-gray-700/50 px-4 py-3 rounded-lg border border-gray-200 dark:border-gray-600">
+        <Label className="text-gray-800 dark:text-gray-200">
+          Is this lecture FREE?
+        </Label>
+        <Switch checked={isFree} onCheckedChange={setIsFree} />
+      </div>
 
-      <CardContent>
-        <div className="space-y-4">
-          <div>
-            <Label>Lecture Title</Label>
-            <Input
-              value={lectureTitle}
-              onChange={(e) => setLectureTitle(e.target.value)}
-              placeholder="Ex. Introduction to JavaScript"
-            />
-          </div>
+      {/* Update Button */}
+      <Button
+        disabled={loading}
+        onClick={editLectureHandler}
+        className="bg-blue-600 hover:bg-blue-700 text-white w-full"
+      >
+        {loading ? (
+          <>
+            <Loader2 className="mr-2 w-4 h-4 animate-spin" />
+            Please wait
+          </>
+        ) : (
+          "Update Lecture"
+        )}
+      </Button>
 
-          <div>
-            <Label>YouTube Video Link</Label>
-            <Input
-              value={youtubeUrl}
-              onChange={(e) => setYoutubeUrl(e.target.value)}
-              placeholder="https://www.youtube.com/watch?v=XXXX"
-            />
-          </div>
-
-          {/* Optional Preview */}
-          {youtubeUrl && (
-            <iframe
-              className="w-full h-64 rounded-md"
-              src={youtubeUrl.replace("watch?v=", "embed/")}
-              title="YouTube Preview"
-              allowFullScreen
-            />
-          )}
-
-          <div className="flex items-center gap-2">
-            <Switch checked={isFree} onCheckedChange={setIsFree} />
-            <Label>Is this lecture FREE?</Label>
-          </div>
-
-          <Button
-            disabled={loading}
-            onClick={editLectureHandler}
-            className="bg-gray-800 hover:bg-gray-800 mt-4"
-          >
-            {loading ? (
-              <>
-                <Loader2 className="mr-1 w-4 h-4 animate-spin" />
-                Please wait
-              </>
-            ) : (
-              "Update Lecture"
-            )}
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+    </div>
+  </CardContent>
+</Card>
   );
 };
 

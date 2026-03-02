@@ -8,38 +8,64 @@ const CourseCard = ({ course }) => {
   const token = localStorage.getItem("accessToken");
 
   return (
-    <Card className="group overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm hover:shadow-lg transition-all duration-300">
-      
+    <Card
+      className="
+        group overflow-hidden rounded-2xl 
+        border border-gray-200 dark:border-gray-700
+        bg-white dark:bg-gray-800
+        shadow-sm hover:shadow-xl
+        transition-all duration-300
+      "
+    >
       {/* Thumbnail */}
       <div className="relative overflow-hidden bg-black">
         <img
           src={course?.courseThumbnail || "/placeholder.jpg"}
           alt={course?.courseTitle}
-          className=" w-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300"
+          className="
+            w-full object-cover opacity-90 
+            group-hover:opacity-100 group-hover:scale-105 
+            transition-all duration-300
+          "
         />
 
         {/* Badge */}
-        <span className="absolute top-3 left-3 bg-black text-white text-xs font-semibold px-3 py-1 rounded-full">
+        <span
+          className="
+            absolute top-3 left-3 
+            bg-black dark:bg-gray-900
+            text-white text-xs font-semibold 
+            px-3 py-1 rounded-full
+          "
+        >
           FEATURED
         </span>
       </div>
 
       {/* Content */}
       <div className="p-5">
-        <h2 className="text-lg font-bold text-black line-clamp-2">
+        <h2 className="text-lg font-bold text-gray-900 dark:text-white line-clamp-2">
           {course?.courseTitle}
         </h2>
 
-        <p className="text-sm text-gray-700 mt-2 line-clamp-3">
+        <p className="text-sm text-gray-600 dark:text-gray-300 mt-2 line-clamp-3">
           {course?.subTitle || "No description available"}
         </p>
 
         {/* Divider */}
-        <div className="h-px bg-gray-300 my-4" />
+        <div className="h-px bg-gray-300 dark:bg-gray-700 my-4" />
 
-        {/* Action */}
+        {/* Action Button */}
         <Button
-          className="w-full rounded-xl border border-black bg-black text-white hover:bg-white hover:text-black transition-all duration-300"
+          className="
+            w-full rounded-xl 
+            border border-black dark:border-white
+            bg-black dark:bg-white
+            text-white dark:text-black
+            hover:bg-white hover:text-black
+            dark:hover:bg-black dark:hover:text-white
+            transition-all duration-300
+          "
           onClick={() =>
             navigate(token ? `/courses/${course._id}` : "/login")
           }

@@ -92,71 +92,100 @@ const CreateLecture = () => {
   };
 
   return (
-    <div className="p-4 md:p-10 md:pr-20 h-screen">
-      <h1 className="text-2xl font-bold mb-2">
-        Lets Add <span className="text-blue-600">Lectures</span>
-      </h1>
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300 p-4 md:p-10 md:pr-20">
 
-      <div className="mt-10 space-y-5">
-        <div>
-          <Label>Title</Label>
-          <Input
-            value={lectureTitle}
-            onChange={(e) => setLectureTitle(e.target.value)}
-            placeholder="Your Lecture Name"
-            className="bg-white"
+  {/* Header */}
+  <div>
+    <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
+      Let’s Add <span className="text-blue-600">Lectures</span>
+    </h1>
+    <p className="mt-2 text-gray-600 dark:text-gray-400">
+      Create and manage lectures for this course.
+    </p>
+  </div>
+
+  {/* Create Lecture Card */}
+  <div className="mt-10 max-w-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-lg rounded-xl p-6 space-y-6">
+
+    <div>
+      <Label className="text-gray-800 dark:text-gray-200">
+        Title
+      </Label>
+      <Input
+        value={lectureTitle}
+        onChange={(e) => setLectureTitle(e.target.value)}
+        placeholder="Your Lecture Name"
+        className="mt-2 bg-white dark:bg-gray-700 dark:text-white border-gray-300 dark:border-gray-600"
+      />
+    </div>
+
+    <div className="flex gap-3 pt-2">
+      <Button
+        onClick={() => navigate(`/course/${courseId}`)}
+        variant="outline"
+        className="dark:border-gray-600 dark:text-gray-200"
+      >
+        Back to Course
+      </Button>
+
+      <Button
+        disabled={loading}
+        onClick={createLectureHandler}
+        className="bg-blue-600 hover:bg-blue-700 text-white"
+      >
+        {loading ? (
+          <>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            Please wait
+          </>
+        ) : (
+          "Create Lecture"
+        )}
+      </Button>
+    </div>
+  </div>
+
+  {/* Lecture List */}
+  <div className="mt-12 max-w-2xl">
+    <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">
+      Course Lectures
+    </h2>
+
+    {fetching ? (
+      <p className="text-gray-600 dark:text-gray-400">
+        Loading lectures...
+      </p>
+    ) : lectures.length === 0 ? (
+      <p className="text-gray-500 dark:text-gray-400">
+        No lectures added yet.
+      </p>
+    ) : (
+      lectures.map((lecture, index) => (
+        <div
+          key={lecture._id}
+          className="
+            flex items-center justify-between
+            bg-white dark:bg-gray-800
+            border border-gray-200 dark:border-gray-700
+            px-4 py-3 rounded-lg
+            mb-3
+            hover:shadow-md transition
+          "
+        >
+          <h1 className="font-medium text-gray-800 dark:text-gray-200">
+            Lecture {index + 1}: {lecture.lectureTitle}
+          </h1>
+
+          <Edit
+            onClick={() => navigate(`${lecture._id}`)}
+            size={20}
+            className="cursor-pointer text-gray-500 hover:text-blue-600 transition"
           />
         </div>
-
-        <div className="flex gap-2">
-          <Button
-            onClick={() => navigate(`/course/${courseId}`)}
-            variant="outline"
-          >
-            Back to Course
-          </Button>
-
-          <Button
-            disabled={loading}
-            onClick={createLectureHandler}
-            className="bg-gray-800"
-          >
-            {loading ? (
-              <>
-                <Loader2 className="mr-1 h-4 w-4 animate-spin" />
-                Please wait
-              </>
-            ) : (
-              "Create Lecture"
-            )}
-          </Button>
-        </div>
-      </div>
-
-      {/* ---------------- LECTURE LIST ---------------- */}
-      <div className="mt-10">
-        {fetching ? (
-          <p>Loading lectures...</p>
-        ) : (
-          lectures.map((lecture, index) => (
-            <div
-              key={lecture._id}
-              className="flex items-center justify-between bg-[#F7F9FA] px-4 py-2 rounded-md my-2"
-            >
-              <h1 className="font-bold text-gray-800">
-                Lecture {index + 1}: {lecture.lectureTitle}
-              </h1>
-
-              <Edit
-                onClick={() => navigate(`${lecture._id}`)}
-                size={20}
-                className="cursor-pointer text-gray-600 hover:text-blue-600"
-              />
-            </div>
-          ))
-        )}
-      </div>
-    </div>
+      ))
+    )}
+  </div>
+</div>
   );
 };
 

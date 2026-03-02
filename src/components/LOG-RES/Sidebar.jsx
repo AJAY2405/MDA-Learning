@@ -10,23 +10,17 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import UserLogo from "../assets/user.jpg"
+import avatar1 from "../assets/avatar1.jpg";
 import {
   BookOpen,
   LogOut,
   User,
-  Stethoscope,
   Home,
   Info,
-  List,
   Menu,
   X,
-  Shield,
-  Activity,
-  BookUser,
-  BookPlus,
-  Book,
-  BookCheckIcon,
+  LayoutDashboard,
+  BookCheck,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -37,9 +31,11 @@ const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
+  /* ================= LOGOUT ================= */
   const logoutHandler = async () => {
     try {
       const accessToken = localStorage.getItem("accessToken");
+
       const res = await axios.post(
         `${import.meta.env.VITE_API_BASE_URL}/api/v1/user/logout`,
         {},
@@ -49,14 +45,12 @@ const Sidebar = () => {
       );
 
       if (res.data.success) {
-        //  Logout success
         setUser(null);
         localStorage.removeItem("user");
         localStorage.removeItem("accessToken");
         toast.success(res.data.message || "Logged out successfully");
       } else {
-        //  Logout failed (API responded with success: false)
-        toast.error(res.data.message || "Logout failed, please try again");
+        toast.error(res.data.message || "Logout failed");
       }
     } catch (error) {
       console.error("Logout error:", error);
@@ -64,7 +58,7 @@ const Sidebar = () => {
     }
   };
 
-  // Close sidebar with ESC key
+  /* ================= ESC CLOSE ================= */
   useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === "Escape") setIsOpen(false);
@@ -73,7 +67,7 @@ const Sidebar = () => {
     return () => window.removeEventListener("keydown", handleEsc);
   }, []);
 
-  // ✅ Role-based menu items
+  /* ================= ROLE MENU ================= */
   const getMenuItems = () => {
     if (!user) return [];
 
@@ -83,161 +77,157 @@ const Sidebar = () => {
           {
             to: "/courses",
             label: "Courses",
+            icon: <BookCheck className="h-5 w-5" />,
           },
         ];
+
       case "teacher":
         return [
-          { 
+          {
             to: "/teacherdashboard",
-            label: "Dashboard"
-           },
-          { 
+            label: "Dashboard",
+            icon: <LayoutDashboard className="h-5 w-5" />,
+          },
+          {
             to: "/course",
-            label: "Courses"
-           }
-          ];
+            label: "Courses",
+            icon: <BookOpen className="h-5 w-5" />,
+          },
+        ];
+
       default:
         return [];
     }
   };
 
+  const navLinkStyle = (path) =>
+    `flex items-center gap-3 p-3 rounded-lg transition ${
+      location.pathname === path
+        ? "bg-blue-100 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400"
+        : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+    }`;
+
   return (
     <>
-      {/* Mobile toggle button */}
-      <div className="fixed top-4 left-4  md:hidden z-50 ">
+      {/* ================= Mobile Toggle ================= */}
+      <div className="fixed top-4 left-4 md:hidden z-50">
         <Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </Button>
       </div>
 
-      {/* Sidebar */}
+      {/* ================= Sidebar ================= */}
       <div
-        className={`fixed top-0 left-0 h-full w-64 bg-white border-r shadow-md flex flex-col justify-between transition-transform duration-300 ease-in-out z-50
-          ${isOpen ? "translate-x-0" : "-translate-x-full"} 
-          md:translate-x-0 md:static md:flex`}
+        className={`fixed top-0 left-0 h-full w-64 
+        bg-white dark:bg-gray-700 
+        border-r border-gray-200 dark:border-gray-800 
+        shadow-md flex flex-col justify-between 
+        transition-transform duration-300 z-50
+        ${isOpen ? "translate-x-0" : "-translate-x-full"} 
+        md:translate-x-0 md:static md:flex`}
       >
-        {/* Top Section - Logo & Navigation */}
-        <div className="flex flex-col flex-1 ">
+        {/* Top Section */}
+        <div className="flex flex-col flex-1">
+
           {/* Logo */}
-          <div className="flex items-center gap-2 px-6 py-4 border-b">
+          <div className="px-6 py-6 border-b border-gray-200 dark:border-gray-800">
             <img
               src="/Image/logo.png"
-              alt="MDA Coaching Logo"
-              className="mx-auto mb-6 w-60 h-30 object-contain"
+              alt="Logo"
+              className="mx-auto w-40 object-contain"
             />
-            {/* <Link
-              to="/"
-              className="text-xl font-bold text-gray-700 hover:text-gray-800"
-            >
-              <span className="text-black">MDA</span>4
-              <span className="text-black">Workers</span>
-            </Link> */}
           </div>
 
           {/* Navigation */}
-          <nav className="mt-6 px-4 space-y-2 overflow-y-auto flex-1">
-            <Link
-              to="/"
-              className={`flex items-center gap-2 p-3 rounded-md ${
-                location.pathname === "/"
-                  ? "bg-gray-100 text-black"
-                  : "text-gray-700 hover:bg-gray-50"
-              }`}
-            >
+          <nav className="mt-6 px-4 space-y-2 flex-1 overflow-y-auto">
+            <Link to="/" className={navLinkStyle("/")}>
               <Home className="h-5 w-5" />
               Home
             </Link>
 
-            {/* Role-based links */}
             {getMenuItems().map((item, index) => (
-              <Link
-                key={index}
-                to={item.to}
-                className={`flex items-center gap-2 p-3 rounded-md ${
-                  location.pathname === item.to
-                    ? "bg-gray-100 text-black"
-                    : "text-gray-700 hover:bg-gray-50"
-                }`}
-              >
-                 <BookCheckIcon className="h-5 w-5" />
+              <Link key={index} to={item.to} className={navLinkStyle(item.to)}>
                 {item.icon}
                 {item.label}
               </Link>
-              
             ))}
-             <Link
-              to="/about"
-              className={`flex items-center gap-2 p-3 rounded-md ${
-                location.pathname === "/about"
-                  ? "bg-gray-100 text-black"
-                  : "text-gray-700 hover:bg-gray-50"
-              }`}
-            >
+
+            <Link to="/about" className={navLinkStyle("/about")}>
               <Info className="h-5 w-5" />
               About
             </Link>
           </nav>
         </div>
 
-        {/* ✅ Bottom Section - User */}
-        <div className="p-4 border-t bg-white">
+        {/* ================= Bottom User Section ================= */}
+        <div className="p-4 border-t border-gray-200 dark:border-gray-800">
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="ghost"
-                  className="flex items-center w-full p-3 hover:bg-gray-100 rounded-md"
+                  className="flex items-center w-full p-3 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
                 >
                   <Avatar>
-                    <AvatarImage
-                      src={user?.avatar || UserLogo}
-                    />
+                    <AvatarImage src={user?.avatar || avatar1} />
                     <AvatarFallback>
                       {user.username ? user.username[0] : "U"}
                     </AvatarFallback>
                   </Avatar>
+
                   <div className="ml-3 text-left overflow-hidden">
-                    <p className="font-medium text-gray-700 truncate">
+                    <p className="font-medium text-gray-800 dark:text-gray-200 truncate">
                       {user.username}
                     </p>
-                    <p className="text-sm text-gray-500 truncate">
+                    <p className="text-sm text-gray-500 dark:text-gray-400 truncate">
                       {user.email}
                     </p>
                   </div>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56">
+
+              <DropdownMenuContent
+                align="end"
+                className="w-56 dark:bg-gray-900 dark:border-gray-800"
+              >
                 <DropdownMenuLabel>Account</DropdownMenuLabel>
+
                 <DropdownMenuItem asChild>
                   <Link to="/profile">
-                    <User className="mr-2 h-4 w-4" /> Profile
+                    <User className="mr-2 h-4 w-4" />
+                    Profile
                   </Link>
                 </DropdownMenuItem>
+
                 <DropdownMenuItem>
-                  <BookOpen className="mr-2 h-4 w-4" /> Notes
+                  <BookOpen className="mr-2 h-4 w-4" />
+                  Notes
                 </DropdownMenuItem>
+
                 <DropdownMenuSeparator />
+
                 <DropdownMenuItem onClick={logoutHandler}>
-                  <LogOut className="mr-2 h-4 w-4" /> Logout
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Logout
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
             <Link
               to="/login"
-              className="flex items-center gap-2 p-3 font-bold text-gray-800 hover:bg-gray-50 rounded-md"
+              className="flex items-center gap-2 p-3 font-semibold text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
             >
-              <User className="h-5 w-5 font-bold text-black" />
+              <User className="h-5 w-5" />
               Login / Signup
             </Link>
           )}
         </div>
       </div>
 
-      {/* Mobile overlay */}
+      {/* ================= Mobile Overlay ================= */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/50 md:hidden z-40 animate-fade-in"
+          className="fixed inset-0 bg-black/50 md:hidden z-40"
           onClick={() => setIsOpen(false)}
         />
       )}

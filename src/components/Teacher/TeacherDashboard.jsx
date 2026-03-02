@@ -2,20 +2,20 @@ import React from "react";
 import { getData } from "@/context/userContext";
 
 function TeacherDashboard() {
-  const { user } = getData(); // ✅ Context API (no redux)
+  const { user } = getData();
 
   return (
-    <div className="flex md:h-screen bg-gray-100">
+    <div className="flex md:h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
       <div className="flex-1 flex flex-col">
         <main className="p-6 space-y-6">
 
           {/* Welcome Section */}
-          <section className="bg-blue-500 text-white rounded-lg p-6">
+          <section className="bg-blue-500 dark:bg-blue-600 text-white rounded-lg p-6">
             <h1 className="text-2xl font-bold">
               Welcome back, {user?.username || "Teacher"}!
             </h1>
 
-            <button className="mt-4 bg-white text-blue-500 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100">
+            <button className="mt-4 bg-white dark:bg-gray-800 text-blue-500 dark:text-white px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 dark:hover:bg-gray-700 transition">
               Browse New Courses
             </button>
           </section>
@@ -30,19 +30,21 @@ function TeacherDashboard() {
             ].map((stat) => (
               <div
                 key={stat.label}
-                className="bg-white shadow rounded-lg p-4 text-center"
+                className="bg-white dark:bg-gray-800 shadow rounded-lg p-4 text-center transition"
               >
-                <h2 className="text-xl font-bold text-gray-700">
+                <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">
                   {stat.value}
                 </h2>
-                <p className="text-gray-500">{stat.label}</p>
+                <p className="text-gray-500 dark:text-gray-400">
+                  {stat.label}
+                </p>
               </div>
             ))}
           </section>
 
           {/* Active Courses */}
           <section>
-            <h2 className="text-xl font-bold text-gray-700 mb-4">
+            <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200 mb-4">
               Active Courses
             </h2>
 
@@ -50,13 +52,13 @@ function TeacherDashboard() {
               {[1, 2, 3].map((course) => (
                 <div
                   key={course}
-                  className="bg-white shadow rounded-lg p-4 flex flex-col"
+                  className="bg-white dark:bg-gray-800 shadow rounded-lg p-4 flex flex-col transition"
                 >
-                  <h3 className="text-lg font-bold text-gray-700 mb-2">
+                  <h3 className="text-lg font-bold text-gray-700 dark:text-gray-200 mb-2">
                     Course {course}
                   </h3>
 
-                  <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                     <div
                       className="bg-blue-500 h-2 rounded-full"
                       style={{ width: `${course * 30}%` }}
@@ -69,32 +71,6 @@ function TeacherDashboard() {
                 </div>
               ))}
             </div>
-          </section>
-
-          {/* Upcoming Tasks */}
-          <section>
-            <h2 className="text-xl font-bold text-gray-700 mb-4">
-              Upcoming Tasks
-            </h2>
-
-            <ul className="space-y-4">
-              {[
-                { title: "Evaluate Assignment", due: "Jan 15, 2025" },
-                { title: "Prepare Quiz", due: "Jan 18, 2025" },
-              ].map((task, index) => (
-                <li
-                  key={index}
-                  className="bg-white shadow rounded-lg p-4 flex justify-between items-center"
-                >
-                  <span className="font-semibold text-gray-700">
-                    {task.title}
-                  </span>
-                  <span className="text-gray-500">
-                    Due: {task.due}
-                  </span>
-                </li>
-              ))}
-            </ul>
           </section>
 
         </main>

@@ -175,152 +175,199 @@ const CourseTab = () => {
   if (!selectedCourse) return null;
 
   return (
-    <Card>
-      <CardHeader className="flex md:flex-row justify-between">
+    <Card className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-xl transition-colors duration-300">
+
+  <CardHeader className="flex md:flex-row justify-between items-start md:items-center gap-4">
+    <div>
+      <CardTitle className="text-gray-800 dark:text-white">
+        Basic Course Information
+      </CardTitle>
+      <CardDescription className="text-gray-600 dark:text-gray-400">
+        Make changes to your course here. Click save when you're done.
+      </CardDescription>
+    </div>
+
+    <div className="space-x-2">
+      <Button
+        onClick={() =>
+          togglePublishUnpublish(publish ? "false" : "true")
+        }
+        disabled={publishLoading}
+        className="
+          bg-gray-900 text-white 
+          hover:bg-gray-800 
+          dark:bg-white dark:text-black 
+          dark:hover:bg-gray-200
+        "
+      >
+        {publishLoading ? (
+          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+        ) : publish ? (
+          "UnPublish"
+        ) : (
+          "Publish"
+        )}
+      </Button>
+    </div>
+  </CardHeader>
+
+  <CardContent>
+    <div className="space-y-6 mt-5">
+
+      {/* Title */}
+      <div>
+        <Label className="text-gray-800 dark:text-gray-200">Title</Label>
+        <Input
+          name="courseTitle"
+          value={input.courseTitle}
+          onChange={changeEventHandler}
+          className="mt-2 bg-white dark:bg-gray-700 dark:text-white border-gray-300 dark:border-gray-600"
+        />
+      </div>
+
+      {/* Subtitle */}
+      <div>
+        <Label className="text-gray-800 dark:text-gray-200">Subtitle</Label>
+        <Input
+          name="subTitle"
+          value={input.subTitle}
+          onChange={changeEventHandler}
+          className="mt-2 bg-white dark:bg-gray-700 dark:text-white border-gray-300 dark:border-gray-600"
+        />
+      </div>
+
+      {/* Description */}
+      <div>
+        <Label className="text-gray-800 dark:text-gray-200">Description</Label>
+        <div className="mt-2 dark:text-white">
+          <RichTextEditor input={input} setInput={setInput} />
+        </div>
+      </div>
+
+      {/* Row */}
+      <div className="flex flex-wrap gap-6">
+
+        {/* Category */}
         <div>
-          <CardTitle>Basic Course Information</CardTitle>
-          <CardDescription>
-            Make changes to your course here. Click save when you're done.
-          </CardDescription>
+          <Label className="text-gray-800 dark:text-gray-200">
+            Category
+          </Label>
+          <Select value={input.category} onValueChange={selectCategory}>
+            <SelectTrigger className="w-[180px] mt-2 bg-white dark:bg-gray-700 dark:text-white border-gray-300 dark:border-gray-600">
+              <SelectValue placeholder="Select category" />
+            </SelectTrigger>
+            <SelectContent className="dark:bg-gray-800 dark:text-white">
+              <SelectGroup>
+                <SelectLabel>Category</SelectLabel>
+                <SelectItem value="Class 10">Class 10</SelectItem>
+                <SelectItem value="Class 9">Class 9</SelectItem>
+                <SelectItem value="Class 8">Class 8</SelectItem>
+                <SelectItem value="Class 7">Class 7</SelectItem>
+                <SelectItem value="Class 6">Class 6</SelectItem>
+                <SelectItem value="Class 5">Class 5</SelectItem>
+                <SelectItem value="Class 4">Class 4</SelectItem>
+                <SelectItem value="Class 3">Class 3</SelectItem>
+                <SelectItem value="Class 2">Class 2</SelectItem>
+                <SelectItem value="Class 1">Class 1</SelectItem>
+                <SelectItem value="U.K.G/L.K.G">
+                  U.K.G/L.K.G
+                </SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
         </div>
-        <div className="space-x-2">
-          <Button
-            onClick={() =>
-              togglePublishUnpublish(publish ? "false" : "true")
-            }
-            className="bg-gray-800 hover:bg-gray-800"
-            disabled={publishLoading}
+
+        {/* Level */}
+        <div>
+          <Label className="text-gray-800 dark:text-gray-200">
+            Course Level
+          </Label>
+          <Select
+            value={input.courseLevel}
+            onValueChange={selectCourseLevel}
           >
-            {publishLoading ? (
+            <SelectTrigger className="w-[180px] mt-2 bg-white dark:bg-gray-700 dark:text-white border-gray-300 dark:border-gray-600">
+              <SelectValue placeholder="Select level" />
+            </SelectTrigger>
+            <SelectContent className="dark:bg-gray-800 dark:text-white">
+              <SelectGroup>
+                <SelectLabel>Level</SelectLabel>
+                <SelectItem value="Beginner">Beginner</SelectItem>
+                <SelectItem value="Medium">Medium</SelectItem>
+                <SelectItem value="Advance">Advance</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* Price */}
+        <div>
+          <Label className="text-gray-800 dark:text-gray-200">
+            Price (INR)
+          </Label>
+          <Input
+            type="number"
+            name="coursePrice"
+            value={input.coursePrice}
+            onChange={changeEventHandler}
+            className="mt-2 bg-white dark:bg-gray-700 dark:text-white border-gray-300 dark:border-gray-600"
+          />
+        </div>
+      </div>
+
+      {/* Thumbnail */}
+      <div>
+        <Label className="text-gray-800 dark:text-gray-200">
+          Course Thumbnail
+        </Label>
+        <Input
+          type="file"
+          accept="image/*"
+          onChange={selectThumbnail}
+          className="mt-2 bg-white dark:bg-gray-700 dark:text-white border-gray-300 dark:border-gray-600"
+        />
+        {previewThumbnail && (
+          <img
+            src={previewThumbnail}
+            className="w-64 my-4 rounded-lg shadow-md"
+          />
+        )}
+      </div>
+
+      {/* Buttons */}
+      <div className="flex gap-3">
+        <Button
+          variant="outline"
+          onClick={() => navigate("/course")}
+          className="dark:border-gray-600 dark:text-gray-200"
+        >
+          Cancel
+        </Button>
+
+        <Button
+          disabled={loading}
+          onClick={updateCourseHandler}
+          className="
+            bg-gray-900 text-white
+            hover:bg-gray-800
+            dark:bg-white dark:text-black
+            dark:hover:bg-gray-200
+          "
+        >
+          {loading ? (
+            <>
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-            ) : publish ? (
-              "UnPublish"
-            ) : (
-              "Publish"
-            )}
-          </Button>
-          {/* <Button variant="destructive">Remove Course</Button> */}
-        </div>
-      </CardHeader>
+              Please wait
+            </>
+          ) : (
+            "Save"
+          )}
+        </Button>
+      </div>
 
-      <CardContent>
-        <div className="space-y-4 mt-5">
-          <div>
-            <Label>Title</Label>
-            <Input
-              name="courseTitle"
-              value={input.courseTitle}
-              onChange={changeEventHandler}
-            />
-          </div>
-
-          <div>
-            <Label>Subtitle</Label>
-            <Input
-              name="subTitle"
-              value={input.subTitle}
-              onChange={changeEventHandler}
-            />
-          </div>
-
-          <div>
-            <Label>Description</Label>
-            <RichTextEditor input={input} setInput={setInput} />
-          </div>
-
-          <div className="flex flex-wrap gap-5">
-            <div>
-              <Label>Category</Label>
-              <Select value={input.category} onValueChange={selectCategory}>
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Select category" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Category</SelectLabel>
-                    <SelectItem value="Class 10">Class 10</SelectItem>
-                                    <SelectItem value="Class 9">Class 9</SelectItem>
-                                    <SelectItem value="Class 8">
-                                      Class 8
-                                    </SelectItem>
-                                    <SelectItem value="Class 7">
-                                      Class 7
-                                    </SelectItem>
-                                    <SelectItem value="Class 6">
-                                      Class 6
-                                    </SelectItem>
-                                    <SelectItem value="Class 5">Class 5</SelectItem>
-                                    <SelectItem value="Class 4">Class 4</SelectItem>
-                                    <SelectItem value="Class 3">Class 3</SelectItem>
-                                    <SelectItem value="Class 2">Class 2</SelectItem>
-                                    <SelectItem value="Class 1">Class 1</SelectItem>
-                                    <SelectItem value="U.K.G/L.K.G">U.K.G/L.K.G</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div>
-              <Label>Course Level</Label>
-              <Select
-                value={input.courseLevel}
-                onValueChange={selectCourseLevel}
-              >
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Select level" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Level</SelectLabel>
-                    <SelectItem value="Beginner">Beginner</SelectItem>
-                    <SelectItem value="Medium">Medium</SelectItem>
-                    <SelectItem value="Advance">Advance</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div>
-              <Label>Price (INR)</Label>
-              <Input
-                type="number"
-                name="coursePrice"
-                value={input.coursePrice}
-                onChange={changeEventHandler}
-              />
-            </div>
-          </div>
-
-          <div>
-            <Label>Course Thumbnail</Label>
-            <Input type="file" accept="image/*" onChange={selectThumbnail} />
-            {previewThumbnail && (
-              <img src={previewThumbnail} className="w-64 my-2" />
-            )}
-          </div>
-
-          <div className="flex gap-2">
-            <Button variant="outline" onClick={() => navigate("/course")}>
-              Cancel
-            </Button>
-            <Button
-              className="bg-gray-800 hover:bg-gray-800"
-              disabled={loading}
-              onClick={updateCourseHandler}
-            >
-              {loading ? (
-                <>
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Please wait
-                </>
-              ) : (
-                "Save"
-              )}
-            </Button>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
+    </div>
+  </CardContent>
+</Card>
   );
 };
 
