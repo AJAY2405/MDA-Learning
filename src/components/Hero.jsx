@@ -94,6 +94,9 @@ const Hero = () => {
 
       {/* HERO TEXT */}
       <div className="max-w-6xl mx-auto text-center mb-16">
+        <p className="text-sm md:text-base font-medium text-blue-600 dark:text-blue-400 mb-3">
+     Welcome to Mangaldeep Academy
+  </p>
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">
           Quality Education for Academic Excellence
         </h1>

@@ -35,14 +35,14 @@ const Home = () => {
     <div
       className="
         min-h-screen transition-colors duration-300
-        bg-gray-50 dark:bg-gray-900
+        bg-gray-200 dark:bg-gray-900
       "
     >
       {/* Hero Section */}
       <Hero />
 
       {/* ---------- COURSES SECTION ---------- */}
-      <div className="mt-20 px-6 pb-20">
+      <div className="mt-20 px-6 pb-20 ">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}

@@ -40,7 +40,7 @@ const Courses = () => {
   }, [token]);
 
   return (
-    <div className="bg-gray-100 dark:bg-gray-900 pt-14 transition-colors duration-300">
+    <div className="bg-gray-200 dark:bg-gray-900 pt-14 transition-colors duration-300">
       <div className="min-h-screen max-w-7xl mx-auto py-10">
         <div className="px-4">
           <h1 className="text-4xl font-bold text-center text-gray-800 dark:text-white mb-4">
