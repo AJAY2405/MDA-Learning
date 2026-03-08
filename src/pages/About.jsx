@@ -19,11 +19,22 @@ const About = () => {
       <div className="max-w-5xl mx-auto text-center">
 
         {/* Logo */}
-        <img
-          src="/Image/logo.png"
-          alt="MDA Coaching Logo"
-          className="mx-auto mb-10 w-80 h-40 object-contain"
-        />
+            <div className="flex justify-center h-20">
+              {/* Light Mode Logo */}
+              <img
+                src="/Image/logo1.png"
+                alt="logo1"
+                className=" w-40 object-contain block dark:hidden"
+              />
+
+              {/* Dark Mode Logo */}
+              <img
+                src="/Image/logo2.png"
+                alt="logo2"
+                className=" w-40 object-contain hidden dark:block"
+              />
+            </div>
+          
 
         {/* Intro */}
         <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-4">

@@ -3,17 +3,27 @@ import { FaGithub, FaLinkedinIn, FaTwitter } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-300 dark:bg-gray-700 text-black dark:text-gray-200 transition-colors duration-300">
+    <footer className="bg-gray-300 dark:bg-gray-900 text-black dark:text-gray-200 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
         
         {/* Brand */}
         <div className="flex items-center gap-2">
-          <img
-            src="/Image/logo.png"
-            alt="E-Learning Logo"
-            className="w-80 h-20 object-contain"
-          />
-        </div>
+            <div className="flex justify-center">
+              {/* Light Mode Logo */}
+              <img
+                src="/Image/logo1.png"
+                alt="logo1"
+                className="w-40 object-contain block dark:hidden"
+              />
+
+              {/* Dark Mode Logo */}
+              <img
+                src="/Image/logo2.png"
+                alt="logo2"
+                className="w-40 object-contain hidden dark:block"
+              />
+            </div>
+          </div>
 
         {/* Social Icons */}
         <div className="flex gap-4">
