@@ -10,34 +10,38 @@ const CourseCard = ({ course }) => {
   return (
     <Card
       className="
-        group overflow-hidden rounded-2xl 
-        border border-gray-200 dark:border-gray-700
-        bg-white dark:bg-gray-800
-        shadow-sm hover:shadow-xl
-        transition-all duration-300
+        group overflow-hidden rounded-2xl
+        border border-gray-200 dark:border-green-900
+        bg-white dark:bg-zinc-900
+        shadow-md hover:shadow-2xl
+        transition-all duration-300 hover:-translate-y-2
       "
     >
-      {/* Thumbnail */}
-      <div className="relative overflow-hidden bg-black">
+      {/* ✅ Thumbnail FIX */}
+      <div className="relative w-full h-48 overflow-hidden bg-gray-100 dark:bg-black">
         <img
-          src={course?.courseThumbnail || "/placeholder.jpg"}
+          src={
+            course?.courseThumbnail
+              ? course.courseThumbnail
+              : "https://via.placeholder.com/400x300?text=No+Image"
+          }
           alt={course?.courseTitle}
           className="
-            w-full object-cover opacity-90 
-            group-hover:opacity-100 group-hover:scale-105 
-            transition-all duration-300
+            w-full h-full object-cover
+            transition-all duration-500
+            group-hover:scale-110
           "
+          onError={(e) => {
+            e.target.src =
+              "https://via.placeholder.com/400x300?text=Image+Error";
+          }}
         />
 
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+
         {/* Badge */}
-        <span
-          className="
-            absolute top-3 left-3 
-            bg-black dark:bg-gray-900
-            text-white text-xs font-semibold 
-            px-3 py-1 rounded-full
-          "
-        >
+        <span className="absolute top-3 left-3 bg-green-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow">
           FEATURED
         </span>
       </div>
@@ -52,19 +56,16 @@ const CourseCard = ({ course }) => {
           {course?.subTitle || "No description available"}
         </p>
 
-        {/* Divider */}
-        <div className="h-px bg-gray-300 dark:bg-gray-700 my-4" />
+        <div className="h-px bg-gray-200 dark:bg-green-900 my-4" />
 
-        {/* Action Button */}
         <Button
           className="
-            w-full rounded-xl 
-            border border-black dark:border-white
-            bg-black dark:bg-white
-            text-white dark:text-black
-            hover:bg-white hover:text-black
-            dark:hover:bg-black dark:hover:text-white
+            w-full rounded-xl
+            bg-green-600 hover:bg-green-700
+            text-white
+            shadow-md
             transition-all duration-300
+            hover:scale-105
           "
           onClick={() =>
             navigate(token ? `/courses/${course._id}` : "/login")

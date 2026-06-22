@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import CourseCard from "./CourseCard";
 import axios from "axios";
+import Contact from "./Contect";
 
 const Home = () => {
   const [courses, setCourses] = useState([]);
@@ -42,7 +43,7 @@ const Home = () => {
       <Hero />
 
       {/* ---------- COURSES SECTION ---------- */}
-      <div className="mt-20 px-6 pb-20 ">
+      {/* <div className="mt-20 px-6 pb-20 ">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -63,7 +64,8 @@ const Home = () => {
             </p>
           )}
         </div>
-      </div>
+      </div> */}
+      <Contact/>
     </div>
   );
 };

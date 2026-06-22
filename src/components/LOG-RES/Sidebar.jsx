@@ -41,20 +41,17 @@ const Sidebar = () => {
         {},
         {
           headers: { Authorization: `Bearer ${accessToken}` },
-        },
+        }
       );
 
       if (res.data.success) {
         setUser(null);
         localStorage.removeItem("user");
         localStorage.removeItem("accessToken");
-        toast.success(res.data.message || "Logged out successfully");
-      } else {
-        toast.error(res.data.message || "Logout failed");
+        toast.success("Logged out successfully");
       }
     } catch (error) {
-      console.error("Logout error:", error);
-      toast.error("Logout failed due to server error");
+      toast.error("Logout failed");
     }
   };
 
@@ -102,54 +99,49 @@ const Sidebar = () => {
 
   /* ================= NAV STYLE ================= */
   const navLinkStyle = (path) =>
-    `flex items-center gap-3 p-3 rounded-xl transition-all duration-200 ${
+    `flex items-center gap-3 p-3 rounded-xl transition-all duration-200 group ${
       location.pathname === path
-        ? "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20"
-        : "text-gray-700 dark:text-gray-300 hover:bg-white/40 dark:hover:bg-white/10"
+        ? "bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 shadow-sm"
+        : "text-gray-700 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-green-900/40"
     }`;
 
   return (
     <>
-      {/* ================= Mobile Toggle ================= */}
+      {/* Mobile Toggle */}
       <div className="fixed top-4 left-4 md:hidden z-50">
         <Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          {isOpen ? <X /> : <Menu />}
         </Button>
       </div>
 
-      {/* ================= Sidebar ================= */}
+      {/* Sidebar */}
       <div
         className={`fixed top-0 left-0 h-full w-64
-        bg-white/60 dark:bg-gray-900/60
-        backdrop-blur-xl
-        border-r border-white/20 dark:border-white/10
-        shadow-xl
-        flex flex-col justify-between
+        bg-white/80 dark:bg-black/80 backdrop-blur-xl
+        border-r border-gray-200 dark:border-green-900
+        shadow-lg flex flex-col justify-between
         transition-transform duration-300 z-50
         ${isOpen ? "translate-x-0" : "-translate-x-full"}
         md:translate-x-0 md:static md:flex`}
       >
-        {/* ================= Logo ================= */}
+        {/* Logo */}
         <div className="flex flex-col flex-1">
-          <div className="px-6 py-6 border-b border-white/20 dark:border-white/10">
+          <div className="px-6 py-6 border-b border-gray-200 dark:border-green-900">
             <div className="flex justify-center">
-              {/* Light Mode Logo */}
               <img
                 src="/Image/logo1.png"
                 alt="logo1"
-                className="w-40 object-contain block dark:hidden"
+                className="w-36 block dark:hidden"
               />
-
-              {/* Dark Mode Logo */}
               <img
                 src="/Image/logo2.png"
                 alt="logo2"
-                className="w-40 object-contain hidden dark:block"
+                className="w-36 hidden dark:block"
               />
             </div>
           </div>
 
-          {/* ================= Navigation ================= */}
+          {/* Navigation */}
           <nav className="mt-6 px-4 space-y-2 flex-1 overflow-y-auto">
             <Link to="/" className={navLinkStyle("/")}>
               <Home className="h-5 w-5" />
@@ -170,37 +162,31 @@ const Sidebar = () => {
           </nav>
         </div>
 
-        {/* ================= User Section ================= */}
-        <div className="p-4 border-t border-white/20 dark:border-white/10">
+        {/* User Section */}
+        <div className="p-4 border-t border-gray-200 dark:border-green-900">
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  className="flex items-center w-full p-3 rounded-xl transition hover:bg-white/40 dark:hover:bg-white/10"
-                >
+                <Button className="flex items-center w-full p-3 rounded-xl bg-green-50 dark:bg-green-900/40 hover:bg-green-100 dark:hover:bg-green-900 transition">
                   <Avatar>
                     <AvatarImage src={user?.avatar || avatar1} />
                     <AvatarFallback>
-                      {user.username ? user.username[0] : "U"}
+                      {user.username?.[0] || "U"}
                     </AvatarFallback>
                   </Avatar>
 
-                  <div className="ml-3 text-left overflow-hidden">
-                    <p className="font-medium text-gray-800 dark:text-gray-200 truncate">
+                  <div className="ml-3 text-left">
+                    <p className="font-medium text-gray-800 dark:text-gray-200">
                       {user.username}
                     </p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 truncate">
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
                       {user.email}
                     </p>
                   </div>
                 </Button>
               </DropdownMenuTrigger>
 
-              <DropdownMenuContent
-                align="end"
-                className="w-56 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/20"
-              >
+              <DropdownMenuContent className="w-56 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-green-900">
                 <DropdownMenuLabel>Account</DropdownMenuLabel>
 
                 <DropdownMenuItem asChild>
@@ -215,7 +201,6 @@ const Sidebar = () => {
                     href="https://exam-frontend-lilac.vercel.app/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center"
                   >
                     <BookOpen className="mr-2 h-4 w-4" />
                     Test / Notes
@@ -233,7 +218,7 @@ const Sidebar = () => {
           ) : (
             <Link
               to="/login"
-              className="flex items-center gap-2 p-3 font-semibold text-gray-800 dark:text-gray-200 hover:bg-white/40 dark:hover:bg-white/10 rounded-xl"
+              className="flex items-center gap-2 p-3 font-semibold text-gray-800 dark:text-gray-200 hover:bg-green-50 dark:hover:bg-green-900/40 rounded-xl"
             >
               <User className="h-5 w-5" />
               Login / Signup
@@ -242,7 +227,7 @@ const Sidebar = () => {
         </div>
       </div>
 
-      {/* ================= Mobile Overlay ================= */}
+      {/* Overlay */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black/40 md:hidden z-40 backdrop-blur-sm"

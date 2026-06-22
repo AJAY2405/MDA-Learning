@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 
-// Import 5 fixed avatars
 import Avatar1 from "../components/assets/avatar1.jpg";
 import Avatar2 from "../components/assets/avatar2.jpg";
 import Avatar3 from "../components/assets/avatar3.jpg";
@@ -65,11 +64,19 @@ const Profile = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 py-20 bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
-      <div className="w-full max-w-5xl rounded-3xl p-10 bg-white dark:bg-gray-800 shadow-xl border dark:border-gray-700">
+    <div className="relative min-h-screen flex items-center justify-center px-6 py-20 bg-white dark:bg-black transition-colors duration-300 overflow-hidden">
 
+      {/* 🌿 Background Animation */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute w-72 h-72 bg-green-300/30 rounded-full blur-3xl top-10 left-10 animate-pulse"></div>
+        <div className="absolute w-72 h-72 bg-green-400/20 rounded-full blur-3xl bottom-10 right-10 animate-pulse"></div>
+      </div>
+
+      <div className="w-full max-w-4xl rounded-3xl p-10 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl shadow-2xl border border-gray-200 dark:border-green-900">
+
+        {/* Profile Info */}
         <div className="flex flex-col items-center">
-          <div className="w-36 h-36 rounded-full overflow-hidden border-4 border-gray-300 dark:border-gray-600 shadow-lg">
+          <div className="w-36 h-36 rounded-full overflow-hidden border-4 border-green-500 shadow-lg hover:scale-105 transition">
             <img
               src={input.avatar}
               alt="Profile"
@@ -77,7 +84,7 @@ const Profile = () => {
             />
           </div>
 
-          <h1 className="mt-6 text-3xl font-semibold text-gray-900 dark:text-white">
+          <h1 className="mt-6 text-3xl font-bold text-green-700 dark:text-green-400">
             {user?.username}
           </h1>
 
@@ -87,7 +94,7 @@ const Profile = () => {
 
           <Button
             onClick={() => setOpen(true)}
-            className="mt-6 bg-black text-white dark:bg-white dark:text-black rounded-full px-6 py-2"
+            className="mt-6 bg-green-600 hover:bg-green-700 text-white rounded-full px-8 py-2 shadow-md transition hover:scale-105"
           >
             Edit Profile
           </Button>
@@ -95,29 +102,35 @@ const Profile = () => {
 
         {/* Dialog */}
         <Dialog open={open} onOpenChange={setOpen}>
-          <DialogContent className="bg-white dark:bg-gray-800 rounded-3xl">
+          <DialogContent className="bg-white dark:bg-zinc-900 rounded-3xl border border-gray-200 dark:border-green-900">
+
             <DialogHeader>
-              <DialogTitle className="text-2xl dark:text-white">
+              <DialogTitle className="text-2xl text-green-700 dark:text-green-400">
                 Edit Profile
               </DialogTitle>
             </DialogHeader>
 
             {/* Username */}
             <div className="mt-6">
-              <Label className="dark:text-white">Username</Label>
+              <Label className="text-gray-700 dark:text-gray-300">
+                Username
+              </Label>
               <input
                 type="text"
                 value={input.username}
                 onChange={(e) =>
                   setInput({ ...input, username: e.target.value })
                 }
-                className="mt-2 w-full p-3 rounded-xl border dark:bg-gray-700 dark:text-white"
+                className="mt-2 w-full p-3 rounded-xl border border-gray-300 dark:border-green-900 bg-white dark:bg-zinc-800 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500"
               />
             </div>
 
             {/* Avatar Selection */}
             <div className="mt-6">
-              <Label className="dark:text-white">Choose Avatar</Label>
+              <Label className="text-gray-700 dark:text-gray-300">
+                Choose Avatar
+              </Label>
+
               <div className="grid grid-cols-5 gap-4 mt-4">
                 {avatarOptions.map((avatar, index) => (
                   <div
@@ -125,9 +138,9 @@ const Profile = () => {
                     onClick={() =>
                       setInput({ ...input, avatar: avatar })
                     }
-                    className={`cursor-pointer rounded-full overflow-hidden border-4 ${
+                    className={`cursor-pointer rounded-full overflow-hidden border-4 transition-all duration-300 hover:scale-110 ${
                       input.avatar === avatar
-                        ? "border-blue-500"
+                        ? "border-green-500"
                         : "border-transparent"
                     }`}
                   >
@@ -145,7 +158,7 @@ const Profile = () => {
               <Button
                 onClick={submitHandler}
                 disabled={loading}
-                className="bg-black text-white dark:bg-white dark:text-black rounded-full px-6 py-2"
+                className="bg-green-600 hover:bg-green-700 text-white rounded-full px-8 py-2 transition-all"
               >
                 {loading ? (
                   <>
@@ -157,6 +170,7 @@ const Profile = () => {
                 )}
               </Button>
             </DialogFooter>
+
           </DialogContent>
         </Dialog>
 

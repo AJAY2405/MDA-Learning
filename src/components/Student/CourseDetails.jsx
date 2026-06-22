@@ -14,7 +14,6 @@ const CourseDetails = () => {
 
   const token = localStorage.getItem("accessToken");
 
-  /* ---------------- FETCH COURSE DETAILS ---------------- */
   useEffect(() => {
     const getCourseById = async () => {
       try {
@@ -34,7 +33,6 @@ const CourseDetails = () => {
     getCourseById();
   }, [courseId, token]);
 
-  /* ---------------- FETCH COURSE LECTURES ---------------- */
   useEffect(() => {
     const getCourseLecture = async () => {
       try {
@@ -56,48 +54,58 @@ const CourseDetails = () => {
 
   if (!selectedCourse) {
     return (
-      <p className="text-center mt-20 text-gray-700 dark:text-gray-300">
-        Loading course...
-      </p>
+      <div className="flex justify-center items-center min-h-screen bg-white dark:bg-black">
+        <div className="w-12 h-12 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
     );
   }
 
   return (
-    <div className="bg-gray-100 dark:bg-gray-900 min-h-screen md:p-10 transition-colors duration-300">
-      <Card className="max-w-7xl mx-auto bg-white dark:bg-gray-800 shadow-md dark:shadow-xl pt-5 mt-14 border border-gray-200 dark:border-gray-700 transition-all duration-300">
+    <div className="relative bg-white dark:bg-black min-h-screen md:p-10 transition-colors duration-300 overflow-hidden">
 
-        {/* ---------- HEADER ---------- */}
-        <div className="px-4 py-3 flex justify-between items-center">
-          <div className="flex gap-2 items-center">
+      {/* 🌿 Background animation */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute w-72 h-72 bg-green-300/30 rounded-full blur-3xl top-10 left-10 animate-pulse"></div>
+        <div className="absolute w-72 h-72 bg-green-400/20 rounded-full blur-3xl bottom-10 right-10 animate-pulse"></div>
+      </div>
+
+      <Card className="max-w-7xl mx-auto bg-white/90 dark:bg-zinc-900/90 backdrop-blur-lg shadow-xl pt-5 mt-14 border border-gray-200 dark:border-green-900 rounded-2xl">
+
+        {/* HEADER */}
+        <div className="px-6 py-4 flex justify-between items-center border-b border-gray-200 dark:border-green-900">
+          <div className="flex gap-3 items-center">
             <Button
               size="icon"
               variant="outline"
-              className="rounded-full border-gray-300 dark:border-gray-600"
+              className="rounded-full border-green-300 dark:border-green-700"
               onClick={() => navigate("/")}
             >
               <ArrowLeft size={16} />
             </Button>
 
-            <h1 className="md:text-2xl font-bold text-gray-800 dark:text-white">
+            <h1 className="md:text-2xl font-bold text-green-800 dark:text-white">
               {selectedCourse.courseTitle}
             </h1>
           </div>
 
-          <Button className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
+          <Button className="bg-green-600 hover:bg-green-700 text-white">
             Enroll Now
           </Button>
         </div>
 
-        {/* ---------- COURSE OVERVIEW ---------- */}
+        {/* COURSE OVERVIEW */}
         <div className="p-6 flex flex-col lg:flex-row gap-8">
           <img
-            src={selectedCourse.courseThumbnail}
+            src={
+              selectedCourse.courseThumbnail ||
+              "https://via.placeholder.com/400x300"
+            }
             alt="Thumbnail"
-            className="w-full lg:w-1/3 rounded-md"
+            className="w-full lg:w-1/3 h-64 object-cover rounded-xl shadow-md"
           />
 
           <div>
-            <p className="text-gray-800 dark:text-gray-200 mb-3 font-semibold capitalize">
+            <p className="text-green-700 dark:text-green-400 mb-2 font-semibold capitalize">
               {selectedCourse.subTitle}
             </p>
 
@@ -108,7 +116,7 @@ const CourseDetails = () => {
               }}
             />
 
-            <p className="text-2xl font-bold text-gray-800 dark:text-white">
+            <p className="text-3xl font-bold text-green-700 dark:text-green-400">
               ₹{selectedCourse.coursePrice}
             </p>
 
@@ -120,31 +128,30 @@ const CourseDetails = () => {
           </div>
         </div>
 
-        {/* ---------- WHAT YOU'LL LEARN ---------- */}
+        {/* WHAT YOU'LL LEARN */}
         <div className="px-6 pb-6">
-          <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-white">
+          <h2 className="text-xl font-bold mb-4 text-green-800 dark:text-white">
             What you’ll learn
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-gray-700 dark:text-gray-300">
-            <p className="flex items-center gap-2">
-              <CheckCircle size={18} /> Build real-world projects
-            </p>
-            <p className="flex items-center gap-2">
-              <CheckCircle size={18} /> Understand core concepts deeply
-            </p>
-            <p className="flex items-center gap-2">
-              <CheckCircle size={18} /> Crack interviews confidently
-            </p>
-            <p className="flex items-center gap-2">
-              <CheckCircle size={18} /> Become industry-ready
-            </p>
+            {[
+              "Build real-world projects",
+              "Understand core concepts deeply",
+              "Crack interviews confidently",
+              "Become industry-ready",
+            ].map((item, i) => (
+              <p key={i} className="flex items-center gap-2">
+                <CheckCircle size={18} className="text-green-600" />
+                {item}
+              </p>
+            ))}
           </div>
         </div>
 
-        {/* ---------- REQUIREMENTS ---------- */}
+        {/* REQUIREMENTS */}
         <div className="px-6 pb-6">
-          <h2 className="text-xl font-bold mb-2 text-gray-800 dark:text-white">
+          <h2 className="text-xl font-bold mb-2 text-green-800 dark:text-white">
             Requirements
           </h2>
           <p className="text-gray-700 dark:text-gray-300">
@@ -152,9 +159,9 @@ const CourseDetails = () => {
           </p>
         </div>
 
-        {/* ---------- WHO THIS COURSE IS FOR ---------- */}
+        {/* WHO THIS COURSE IS FOR */}
         <div className="px-6 pb-6">
-          <h2 className="text-xl font-bold mb-2 text-gray-800 dark:text-white">
+          <h2 className="text-xl font-bold mb-2 text-green-800 dark:text-white">
             Who this course is for
           </h2>
 
@@ -165,9 +172,9 @@ const CourseDetails = () => {
           </ul>
         </div>
 
-        {/* ---------- COURSE LECTURES ---------- */}
+        {/* COURSE LECTURES */}
         <div className="p-6">
-          <h2 className="text-xl font-bold mb-2 text-gray-800 dark:text-white">
+          <h2 className="text-xl font-bold mb-2 text-green-800 dark:text-white">
             Course Curriculum
           </h2>
 
@@ -188,16 +195,16 @@ const CourseDetails = () => {
                 }}
                 className="
                   flex items-center gap-3 
-                  bg-gray-200 dark:bg-gray-700
-                  p-4 rounded-md cursor-pointer
-                  hover:bg-gray-300 dark:hover:bg-gray-600
-                  transition-all
+                  bg-gray-100 dark:bg-zinc-800
+                  p-4 rounded-xl cursor-pointer
+                  hover:bg-green-100 dark:hover:bg-green-900
+                  transition-all duration-300 hover:scale-[1.02]
                 "
               >
                 {lecture.isPreviewFree ? (
-                  <PlayCircle size={20} />
+                  <PlayCircle className="text-green-600" size={20} />
                 ) : (
-                  <Lock size={20} />
+                  <Lock className="text-red-500" size={20} />
                 )}
 
                 <p className="font-medium text-gray-800 dark:text-gray-200">
