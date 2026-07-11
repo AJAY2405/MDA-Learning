@@ -14,7 +14,7 @@ const Verify = () => {
                 console.log(" the token :",token)
                 const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/v1/user/verify`, {},{
                     headers:{
-                        Authorization: `Bearer ${token}`
+                        Authorization: `Bearer ${accessToken}`
                     }
                 })
                 if(res.data.success){
