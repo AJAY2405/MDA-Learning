@@ -81,12 +81,12 @@ const Login = () => {
   };
 
   return (
-    <div className="relative w-full h-screen bg-gradient-to-br from-gray-100 via-white to-green-50 overflow-hidden">
-      {/* Animated circles in background */}
-      <div className="absolute top-10 left-10 w-40 h-40 bg-gray-700 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-pulse"></div>
-      <div className="absolute bottom-10 right-10 w-56 h-56 bg-gray-700 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-pulse"></div>
+    <div className="relative w-full min-h-screen bg-gradient-to-br from-gray-100 via-white to-green-50 overflow-x-hidden">
+      {/* Animated circles in background - pointer-events-none so they never block taps */}
+      <div className="absolute top-10 left-10 w-40 h-40 bg-gray-700 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-pulse pointer-events-none"></div>
+      <div className="absolute bottom-10 right-10 w-56 h-56 bg-gray-700 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-pulse pointer-events-none"></div>
 
-      <div className="min-h-screen flex flex-col justify-center items-center p-4 animate-fadeIn">
+      <div className="relative z-10 min-h-screen flex flex-col justify-center items-center p-4 animate-fadeIn">
         <div className="w-full max-w-md space-y-6">
           {/* Heading */}
           <div className="text-center space-y-2">
@@ -142,6 +142,7 @@ const Login = () => {
                       required
                     />
                     <Button
+                      type="button"
                       variant="ghost"
                       size="sm"
                       className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
@@ -174,11 +175,12 @@ const Login = () => {
                 )}
               </Button>
               <Button
+                type="button"
                 variant="outline"
                 className="w-full"
                 onClick={() => navigate("/signup")}
               >
-                Don’t have an account? Signup
+                Don't have an account? Signup
               </Button>
             </CardFooter>
           </Card>

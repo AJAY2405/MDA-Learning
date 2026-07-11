@@ -10,6 +10,8 @@ const Verify = () => {
     useEffect(()=>{
         const verifyEmail = async()=>{
             try {
+                console.log(import.meta.env.VITE_API_BASE_URL);
+                console.log(" the token :",token)
                 const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/v1/user/verify`, {},{
                     headers:{
                         Authorization: `Bearer ${token}`
